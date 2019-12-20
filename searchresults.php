@@ -166,7 +166,29 @@
 
 
 					//selection query as per the filters
-					$sql = " SELECT * FROM record  WHERE stdname = '$inputname' OR stdage = '$inputage' OR stdgender = '$gendermale' OR stdgender = '$genderfemale' OR stddept = '$deptetc1' OR stddept = '$deptetc' OR stddept = '$deptit1' OR stddept = '$deptit' ";
+					$sql = " SELECT * FROM record  
+					WHERE stdname = '$inputname' OR stdage = '$inputage' OR stdgender = '$gendermale' OR stdgender = '$genderfemale' OR stddept = '$deptetc1' OR stddept = '$deptetc' OR stddept = '$deptit1' OR stddept = '$deptit' ";
+
+
+
+					// $sql = " SELECT * FROM record  
+					// WHERE
+					// CASE when '$inputname' != '' then stdname = '$inputname' 
+					// OR 
+					// CASE when '$inputage' != '' then stdage = '$inputage' 
+					// OR 
+					// CASE when '$gendermale' != '' then stdgender = '$gendermale' 
+					// OR 
+					// CASE when '$genderfemale' != '' then stdgender = '$genderfemale' 
+					// OR 
+					// CASE when '$deptetc1' != '' then stddept = '$deptetc1' 
+					// OR 
+					// CASE when '$deptetc' != '' then stddept = '$deptetc' 
+					// OR 
+					// CASE when '$deptit1' != '' then stddept = '$deptit1' 
+					// OR 
+					// CASE when '$deptit' != '' then stddept = '$deptit' 
+					// ";
 					
 
 					$result = $conn-> query($sql);
@@ -184,7 +206,8 @@
 					{
 						echo '
 						<script type="text/javascript">
-						alert("No Results!!");
+						window.open("showdata.php","_self");
+						alert("Error!! PLease try again!!");
 						</script>';
 					}
 
