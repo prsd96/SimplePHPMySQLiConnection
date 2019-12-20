@@ -32,7 +32,7 @@
 				<div class="form-group" id="leftgndr">
 				<label>Gender:</label>
 				<select class="form-control" name="gender">
-					<option value=" ">Select Your Gender</option>
+					<option value="">Select Your Gender</option>
 					<option value="Male">Male</option>
 					<option value="Female">Female</option>
 				</select> 
@@ -41,7 +41,7 @@
 			<div class="form-group" id="rightdept">
 				<label>Department:</label>
 				<select class="form-control" name="department">
-					<option value=" ">Select Your Department</option>
+					<option value="">Select Your Department</option>
 					<option value="MECH">MECH</option>
 					<option value="ETC">ETC</option>
 					<option value="COMP">COMP</option>
@@ -49,8 +49,6 @@
 				</select> 
 			</div>
 			</div>
-
-			
 
 			<div class="form-group">
 				<center><button type="submit" class="btn btn-success">Add Data</button></center>

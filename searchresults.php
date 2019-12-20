@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Database Record</title>
+	<title>Searched Results</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="stylecode.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -89,13 +89,86 @@
 					//database connection
 					require('dbcon.php');
 
-					// $gendervalue = '';
-					// $deptvalue = 'mech';
+					//input text name
+					$inputname =  $_POST['schname'];
+					//echo "  hello ".$inputname;
 
-					// $sql = "SELECT * from record where stdgender = '$gendervalue' OR stddept = '$deptvalue' ";
+					//input text age
+					$inputage =  $_POST['schage'];
+					//echo "  hello ".$inputage;
+
+					//gender male checkbox
+					if (isset($_POST['schmale']))
+					{
+						$gendermale = $_POST['schmale'];
+						//echo "  hello ".$gendermale;
+					}
+					else
+					{
+						$gendermale = "";
+					}
+
+					//gender male checkbox
+					if (isset($_POST['schfemale']))
+					{
+						$genderfemale = $_POST['schfemale'];
+						//echo "  hello ".$genderfemale;
+					}
+					else
+					{
+						$genderfemale = "";
+					}
+
+					//dept mech checkbox
+					if (isset($_POST['schmech']))
+					{
+						$deptetc1 = $_POST['schmech'];
+						//echo "  hello ".$deptetc1;
+					}
+					else
+					{
+						$deptetc1 = "";
+					}
 					
-					$sql = "SELECT * from record";
+					//dept etc checkbox
+					if (isset($_POST['schetc']))
+					{
+						$deptetc = $_POST['schetc'];
+						//echo "  hello ".$deptetc;
+					}
+					else
+					{
+						$deptetc = "";
+					}
+
+
+					//dept comp checkbox
+					if (isset($_POST['schcomp']))
+					{
+						$deptit1 = $_POST['schcomp'];
+						//echo "  hello ".$deptit1;
+					}
+					else
+					{
+						$deptit1 = "";
+					}
+
+					//dept it checkbox
+					if (isset($_POST['schit']))
+					{
+						$deptit = $_POST['schit'];
+						//echo "  hello ".$deptit;
+					}
+					else
+					{
+						$deptit = "";
+					}
+
+
+					//selection query as per the filters
+					$sql = " SELECT * FROM record  WHERE stdname = '$inputname' OR stdage = '$inputage' OR stdgender = '$gendermale' OR stdgender = '$genderfemale' OR stddept = '$deptetc1' OR stddept = '$deptetc' OR stddept = '$deptit1' OR stddept = '$deptit' ";
 					
+
 					$result = $conn-> query($sql);
 
 					if ($result-> num_rows > 0)
