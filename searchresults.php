@@ -17,17 +17,22 @@
 		<form action="searchresults.php" method="post">
 			<!-- xs (phones), sm (tablets), md (desktops), and lg (larger desktops) -->
 
-			<h3>Filters to search the data</h3><br>
+			
 			<div class="row" style="margin-left: 5%; margin-right: 5%">
-				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+				
+				<!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
 					<label>Name:</label>
 					<input type="text" name="schname" class="form-control" placeholder="Enter a name" >
-				</div>
+				</div> -->
 
 
-				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+				<!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
 					<label>Age:</label>
 					<input type="text" name="schage" class="form-control" placeholder="Enter an age">
+				</div> -->
+
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+					<h3>Filters to search the data >></h3><br>
 				</div>
 
 				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
@@ -59,6 +64,10 @@
 						<input type="checkbox" class="form-control" name="schit" value="it">IT
 					</div>
 				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+				</div>
+
 			</div>
 
 			<div class="form-group">
@@ -68,8 +77,8 @@
 	</center>
 
 
+	<h3 align="center">Search Results</h3><br>
 	<div class="table-responsive">
-		<h3 align="center">Data</h3><br>
 		<center>
 			<table style="width: 80%" class="table table-bordered table-hover text-center">
 				<thead>
@@ -88,24 +97,18 @@
 
 					//database connection
 					require('dbcon.php');
+					error_reporting(0); 
 
-					//input text name
-					$inputname =  $_POST['schname'];
-					//echo "  hello ".$inputname;
+					
 
-					//input text age
-					$inputage =  $_POST['schage'];
-					//echo "  hello ".$inputage;
 
 					//gender male checkbox
 					if (isset($_POST['schmale']))
 					{
 						$gendermale = $_POST['schmale'];
+						$gender = 1;
+						$man = 5;
 						//echo "  hello ".$gendermale;
-					}
-					else
-					{
-						$gendermale = "";
 					}
 
 					//gender male checkbox
@@ -113,44 +116,60 @@
 					{
 						$genderfemale = $_POST['schfemale'];
 						//echo "  hello ".$genderfemale;
+						$gender = 1;
+						$woman = 9;
 					}
-					else
-					{
-						$genderfemale = "";
-					}
+
 
 					//dept mech checkbox
 					if (isset($_POST['schmech']))
 					{
-						$deptetc1 = $_POST['schmech'];
-						//echo "  hello ".$deptetc1;
+						$deptmech = $_POST['schmech'];
+						//echo "  hello ".$deptmech;
+						$dept = 21;
+						$mechanical = 43;
+
+						$MechEtc1 = 0102;
+						$MechComp1 = 0103;
+						$MechIt1 = 0104;
+
+						$MechEtcComp1 = 010203;
+						$MechEtcIt1 = 010204;
+						$MechCompIt1 = 010304;
 					}
-					else
-					{
-						$deptetc1 = "";
-					}
-					
+
 					//dept etc checkbox
 					if (isset($_POST['schetc']))
 					{
 						$deptetc = $_POST['schetc'];
 						//echo "  hello ".$deptetc;
-					}
-					else
-					{
-						$deptetc = "";
-					}
+						$dept = 21;
+						$electronic = 44;
 
+						$MechEtc2 = 0102;
+						$EtcComp1 = 0203;
+						$EtcIt1 = 0204;
+
+						$MechEtcComp2 = 010203;
+						$MechEtcIt2 = 010204;
+						$EtcCompIt1 = 020304;
+					}
 
 					//dept comp checkbox
 					if (isset($_POST['schcomp']))
 					{
-						$deptit1 = $_POST['schcomp'];
-						//echo "  hello ".$deptit1;
-					}
-					else
-					{
-						$deptit1 = "";
+						$deptcomp = $_POST['schcomp'];
+						//echo "  hello ".$deptcomp;
+						$dept = 21;
+						$computer = 45;
+
+						$MechComp2 = 0103;
+						$EtcComp2 = 0203;
+						$CompIt1 = 0304;
+
+						$MechEtcComp3 = 010203;
+						$MechCompIt2 = 010304;
+						$EtcCompIt2 = 020304;
 					}
 
 					//dept it checkbox
@@ -158,67 +177,212 @@
 					{
 						$deptit = $_POST['schit'];
 						//echo "  hello ".$deptit;
-					}
-					else
-					{
-						$deptit = "";
+						$dept = 21;
+						$technology = 46;
+
+						$MechIt2 = 0104;
+						$EtcIt2 = 0204;
+						$CompIt2 = 0304;
+
+						$MechEtcIt3 = 010204;
+						$MechCompIt3 = 010304;
+						$EtcCompIt3 = 020304;
 					}
 
 
 					//selection query as per the filters
-					$sql = " SELECT * FROM record  
-					WHERE stdname = '$inputname' OR stdage = '$inputage' OR stdgender = '$gendermale' OR stdgender = '$genderfemale' OR stddept = '$deptetc1' OR stddept = '$deptetc' OR stddept = '$deptit1' OR stddept = '$deptit' ";
+
+					$sql = " SELECT * FROM record WHERE ";
+
+					if ($gender==1 && $man==5 && $woman ==9)
+					{
+						$sql .= " stdgender = '$gendermale' OR stdgender = '$genderfemale' ";
+					}
+					else
+					{
+						if($gender==1)
+						{
+							if ($man==5)
+							{
+								$sql .= " stdgender = '$gendermale' ";
+							}
+
+							if ($woman==9) 
+							{
+								$sql .= " stdgender = '$genderfemale' ";
+							}	
+						}
+					}
 
 
+					if ($gender==1 && $dept==21) 
+					{
+						$sql .= " AND ";
+					}
 
-					// $sql = " SELECT * FROM record  
-					// WHERE
-					// CASE when '$inputname' != '' then stdname = '$inputname' 
-					// OR 
-					// CASE when '$inputage' != '' then stdage = '$inputage' 
-					// OR 
-					// CASE when '$gendermale' != '' then stdgender = '$gendermale' 
-					// OR 
-					// CASE when '$genderfemale' != '' then stdgender = '$genderfemale' 
-					// OR 
-					// CASE when '$deptetc1' != '' then stddept = '$deptetc1' 
-					// OR 
-					// CASE when '$deptetc' != '' then stddept = '$deptetc' 
-					// OR 
-					// CASE when '$deptit1' != '' then stddept = '$deptit1' 
-					// OR 
-					// CASE when '$deptit' != '' then stddept = '$deptit' 
-					// ";
 					
+					if ($dept==21 && $mechanical==43 && $electronic==44 && $computer==45 && $technology==46) 
+					{
+						$sql .= " stddept = '$deptmech' OR stddept = '$deptetc' OR stddept = '$deptcomp' OR stddept = '$deptit'";
+					}
+					else
+					{
+						if($dept==21)
+						{
+							//triple dept selection
+							if($MechEtcComp1==010203 && $MechEtcComp2==010203 && $MechEtcComp3==010203)
+							{
+								//$triple = 333;
+								$sql .= " stddept = '$deptmech' OR stddept = '$deptetc' OR stddept = '$deptcomp' ";
+							}
+							else
+							{
+								if($MechEtcIt1==010204 && $MechEtcIt2==010204 && $MechEtcIt3==010204)
+								{
+									//$triple = 333;
+									$sql .= " stddept = '$deptmech' OR stddept = '$deptetc' OR stddept = '$deptit' ";
+								}
+								else
+								{
+									if($MechCompIt1==010304 && $MechCompIt2==010304 && $MechCompIt3==010304)
+									{
+										//$triple = 333;
+										$sql .= " stddept = '$deptmech' OR stddept = '$deptcomp' OR stddept = '$deptit' ";
+									}
+									else
+									{
+										if($EtcCompIt1==020304 && $EtcCompIt2==020304 && $EtcCompIt3==020304)
+										{
+											//$triple = 333;
+											$sql .= " stddept = '$deptetc' OR stddept = '$deptcomp' OR stddept = '$deptit' ";
+										}
+										else
+										{
+											$double = 888;
+										}
+									}
+								}
+							}
+
+							if($double == 888)
+							{
+								// start of double dept selection
+								if($MechEtc1==0102 && $MechEtc2==0102)
+								{
+									//$double = 222;
+									$sql .= " stddept = '$deptmech' OR stddept = '$deptetc' ";
+								}
+								else
+								{
+									if($MechComp1==0103 && $MechComp2==0103)
+									{
+										//$double = 222;
+										$sql .= " stddept = '$deptmech' OR stddept = '$deptcomp' ";	
+									}
+									else
+									{
+										if($MechIt1==0104 && $MechIt2==0104)
+										{
+											//$double = 222;
+											$sql .= " stddept = '$deptmech' OR stddept = '$deptit' ";
+										}
+										else
+										{
+											if($EtcComp1==0203 && $EtcComp2==0203)
+											{
+												//$double = 222;
+												$sql .= " stddept = '$deptetc' OR stddept = '$deptcomp' ";
+											}
+											else
+											{
+												if($EtcIt1==0204 && $EtcIt2==0204)
+												{
+													//$double = 222;
+													$sql .= " stddept = '$deptetc'  OR stddept = '$deptit' ";
+												}
+												else
+												{
+													if($CompIt1==0304 && $CompIt2==0304)
+													{
+														//$double = 222;
+														$sql .= " stddept = '$deptcomp' OR stddept = '$deptit' ";
+													}
+													else
+													{
+														$single = 777;
+													}
+												}
+											}
+										}
+									}
+								}
+								// end of double dept selection
+							}
+
+
+							if($single == 777)
+							{
+								if($mechanical==43)
+								{
+									$sql .= " stddept = '$deptmech' ";
+								}
+								if($electronic==44)
+								{
+									$sql .= " stddept = '$deptetc' ";
+								}
+								if($computer==45)
+								{
+									$sql .= " stddept = '$deptcomp' ";
+								}
+								if($technology==46)
+								{
+									$sql .= " stddept = '$deptit' ";
+								}
+								//end of single dept selection
+							}
+
+						}
+					}
+
 
 					$result = $conn-> query($sql);
 
 					if ($result-> num_rows > 0)
 					{
-						$i=1;
+						$i = 1;
 						while ($row = $result->fetch_assoc()) 
 						{
-							echo "<tr><td>".$i++."</td><td>".$row["stdname"]."</td><td>".$row["stdage"]."</td><td>".$row["stdgender"]."</td><td>".$row["stddept"]."</td></tr>";
+							echo "<tr>
+							<td>".$i++."</td>
+							<td>".$row["stdname"]."</td>
+							<td>".$row["stdage"]."</td>
+							<td>".$row["stdgender"]."</td>
+							<td>".$row["stddept"]."</td></tr>";
 						}
 						echo "</table>";
 					}
 					else
 					{
-						echo '
-						<script type="text/javascript">
-						window.open("showdata.php","_self");
-						alert("Error!! PLease try again!!");
-						</script>';
+						//closing php to show no result error using html
+
+						?>
+
+						<div class="alert alert-danger alert-dismissible" role="alert" style="width: 50%"><strong>No Results</strong>
+
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+
+
+						<?php
+						//opening php to continue
 					}
 
 					$conn->close();
-
 					?>
 				</tbody>
-
 			</table>
 		</center>
 	</div>
-
 </body>
 </html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 02, 2020 at 06:07 PM
+-- Generation Time: Dec 20, 2019 at 09:18 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -47,8 +47,7 @@ INSERT INTO `record` (`stdname`, `stdage`, `stdgender`, `stddept`) VALUES
 ('Ankita', 22, 'Female', 'IT'),
 ('Ajit', 24, 'Male', 'MECH'),
 ('Nolan', 24, 'Male', 'COMP'),
-('Zarina', 24, 'Female', 'COMP'),
-('paul', 24, 'Male', 'ETC');
+('Zarina', 24, 'Female', 'COMP');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

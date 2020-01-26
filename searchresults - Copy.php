@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Database Record</title>
+	<title>Searched Results</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="stylecode.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -17,22 +17,17 @@
 		<form action="searchresults.php" method="post">
 			<!-- xs (phones), sm (tablets), md (desktops), and lg (larger desktops) -->
 
-			
+			<h3>Filters to search the data</h3><br>
 			<div class="row" style="margin-left: 5%; margin-right: 5%">
-				
-				<!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
 					<label>Name:</label>
 					<input type="text" name="schname" class="form-control" placeholder="Enter a name" >
-				</div> -->
+				</div>
 
-
-				<!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					<label>Age:</label>
-					<input type="text" name="schage" class="form-control" placeholder="Enter an age">
-				</div> -->
 
 				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-					<h3>Filters to search the data >></h3><br>
+					<label>Age:</label>
+					<input type="text" name="schage" class="form-control" placeholder="Enter an age">
 				</div>
 
 				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
@@ -64,10 +59,6 @@
 						<input type="checkbox" class="form-control" name="schit" value="it">IT
 					</div>
 				</div>
-
-				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-				</div>
-
 			</div>
 
 			<div class="form-group">
@@ -78,7 +69,7 @@
 
 
 	<div class="table-responsive">
-		<h3 align="center">Data Records</h3><br>
+		<h3 align="center">Search Results</h3><br>
 		<center>
 			<table style="width: 80%" class="table table-bordered table-hover text-center">
 				<thead>
@@ -98,12 +89,114 @@
 					//database connection
 					require('dbcon.php');
 
-					// $gendervalue = '';
-					// $deptvalue = 'mech';
-
-					// $sql = "SELECT * from record where stdgender = '$gendervalue' OR stddept = '$deptvalue' ";
 					
-					$sql = "SELECT * FROM record ";
+					//input text name
+					if(isset($_POST['schname']))
+					{
+						$inputname =  $_POST['schname'];
+						//echo "  hello ".$inputname;
+					}
+					else
+					{
+						$inputname = '';
+					}
+					
+
+					//input text age
+					if(isset($_POST['schage']))
+					{
+						$inputage =  $_POST['schage'];
+						//echo "  hello ".$inputage;
+					}
+					else
+					{
+						$inputage = '';
+					}
+
+
+					//gender male checkbox
+					if (isset($_POST['schmale']))
+					{
+						$gendermale = $_POST['schmale'];
+						//echo "  hello ".$gendermale;
+					}
+					else
+					{
+						$gendermale = "";
+					}
+
+
+					//gender male checkbox
+					if (isset($_POST['schfemale']))
+					{
+						$genderfemale = $_POST['schfemale'];
+						//echo "  hello ".$genderfemale;
+					}
+					else
+					{
+						$genderfemale = "";
+					}
+
+
+					//dept mech checkbox
+					if (isset($_POST['schmech']))
+					{
+						$deptetc1 = $_POST['schmech'];
+						//echo "  hello ".$deptetc1;
+					}
+					else
+					{
+						$deptetc1 = "";
+					}
+
+					
+					//dept etc checkbox
+					if (isset($_POST['schetc']))
+					{
+						$deptetc = $_POST['schetc'];
+						//echo "  hello ".$deptetc;
+					}
+					else
+					{
+						$deptetc = "";
+					}
+
+
+					//dept comp checkbox
+					if (isset($_POST['schcomp']))
+					{
+						$deptit1 = $_POST['schcomp'];
+						//echo "  hello ".$deptit1;
+					}
+					else
+					{
+						$deptit1 = "";
+					}
+
+
+					//dept it checkbox
+					if (isset($_POST['schit']))
+					{
+						$deptit = $_POST['schit'];
+						//echo "  hello ".$deptit;
+					}
+					else
+					{
+						$deptit = "";
+					}
+
+
+					//selection query as per the filters
+					$sql = " SELECT * FROM record WHERE 
+					stdname = '$inputname' OR 
+					stdage = '$inputage' OR 
+					stdgender = '$gendermale' OR 
+					stdgender = '$genderfemale' OR 
+					stddept = '$deptetc1' OR 
+					stddept = '$deptetc' OR 
+					stddept = '$deptit1' OR 
+					stddept = '$deptit' 
+					";
 
 					$result = $conn-> query($sql);
 
@@ -118,20 +211,38 @@
 					}
 					else
 					{
-						echo '
-						<script type="text/javascript">
-						alert("No Results!!");
-						</script>';
+						// echo '
+						// <script type="text/javascript">
+						// window.open("showdata.php","_self");
+						// alert("Error!! PLease try again!!");
+						// </script>';
 					}
 
 					$conn->close();
-
 					?>
 				</tbody>
-
 			</table>
 		</center>
 	</div>
-
 </body>
 </html>
+
+
+<?php 
+// session_start();
+// require 'dbcon.php';
+
+// $autodetails = $_SESSION['loginemail'];
+
+// if (!isset($autodetails)) 
+// {
+// 	header('Location: loginform.php');
+// }
+
+// $autodetailssql = "SELECT * FROM numbers WHERE email = '$autodetails' ";
+// $autodetailssqldata = $conn-> query($autodetailssql);
+// $autodetailssqldataresults = $autodetailssqldata->fetch_assoc();
+
+// echo $autodetailssqldataresults["username"];
+
+?>
